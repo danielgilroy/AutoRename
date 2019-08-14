@@ -18,7 +18,7 @@ Here are a few examples with delimiter changes:
 
 # Setup
 
-Before using Auto Rename, it will be benefical to set it up so it can be ran from any directory. Otherwise a copy of Auto Rename will need to be in every directory that has files you want to rename. To set this up, you can either move Auto Rename to the proper system folder or you can modify the operating system's environment variables to include the folder where Auto Rename is located.
+Before using Auto Rename, it will be beneficial to set it up so it can be launched from within any directory. Otherwise a copy of Auto Rename will need to be in every directory that has files you want to rename. To set this up, you can either move Auto Rename to the proper system folder or you can modify the operating system's environment variables to include the folder where Auto Rename is located.
 
 For Windows, move Auto Rename to the following folder:
 
@@ -44,7 +44,7 @@ To remove the delimiter between the starting number and the title, enter the num
 
     01 - This Is The Song Title Of A Song    =>    01- This Is the Song Title of a Song
 
-Characters will only be removed from filenames that have a starting number since the intended use is to remove delimiters between the starting number and title. Be careful using this feature on multiple filenames containing dilimeters of different lengths as unintentional changes and even loss of filename data may occur. The following exaple demonstrates how filename data can be lost:
+Characters will only be removed from filenames that have a starting number since the intended use is to remove delimiters between the starting number and title. Be careful using this feature on multiple filenames containing delimeters of different lengths as unintentional changes and even loss of filename data may occur. The following example demonstrates how filename data can be lost:
 
     Enter the number of characters to remove after the filename number: <2>
 
