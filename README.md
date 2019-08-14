@@ -16,9 +16,21 @@ Here are a few examples with delimiter changes:
     01 This Is The Song Title Of A Song    =>    01 - This Is the Song Title of a Song
     01 This Is The Song Title Of A Song    =>    01. This Is the Song Title of a Song
 
+# Setup
+
+Before using Auto Rename, it will be benefical to set it up so it can be ran from any directory. Otherwise a copy of Auto Rename will need to be in every directory that has files you want to rename. To set this up, you can either move Auto Rename to the proper system folder or you can modify the operating system's environment variables to include the folder where Auto Rename is located.
+
+For Windows, move Auto Rename to the following folder:
+
+    C:\Windows
+
+For Linux, move Auto Rename to the following folder:
+
+    /usr/local/bin
+
 # Usage
 
-To change the filename of every file in a folder, run the application without any arguments.
+To change the filename of every file in a folder, run the application without any arguments from a terminal window. The current working directory of the terminal will be the targeted directory for renaming files. 
 
     autorename.py
 

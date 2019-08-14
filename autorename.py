@@ -25,8 +25,7 @@ def main():
             wordsRegex += r'|\b' + word + r'\b'
 
     #Compile regular expressions
-    caseSensitivePattern = re.compile(wordsRegex)
-    caseInsensitivePattern = re.compile(wordsRegex, re.IGNORECASE)
+    wordPattern = re.compile(wordsRegex, re.IGNORECASE)
     numPattern = re.compile('[0-9]+')
     alnumPattern = re.compile('[0-9A-Za-z]')
     invalidPattern = re.compile(r'[\\/:*?"<>|]')
@@ -65,9 +64,9 @@ def main():
         fileRenamed = False
         caseChange = False
         newFilename = filename
-        wordSkip = 0
-        delimiterPosInNumber = 0 #Position of delimiter if part of the starting number: Assume it's not
         extension = os.path.splitext(filename)[1]
+        delimiterPosInNumber = 0 #Position of delimiter if part of the starting number: Assume it's not
+        wordSkip = 0
         numLength = 0
 
         #--------------------------------------#
@@ -123,26 +122,20 @@ def main():
         
         #Check for inner words that should be lowercase or uppercase
         for pos in range(wordSkip, len(words) - 1): #Skip number (if exists) and first and last words
-            wordMatch = caseSensitivePattern.match(words[pos])
-            if wordMatch and words[pos-1][-1].isalnum():
+            wordMatch = wordPattern.match(words[pos])
+            if wordMatch and not wordMatch.group().isupper() and words[pos-1][-1].isalnum():
                 words[pos] = words[pos].lower() #Change word to lowercase
                 caseChange = True
-            else:
-                wordMatch = caseInsensitivePattern.match(words[pos])
-                if wordMatch and words[pos-1][-1].isalnum(): 
-                    continue #Skip words that should be lowercase
-                if capitalizeFirstAlphanumeric(words, pos): #Capitalize the first alphanumeric character if it's an alphabet
+            elif capitalizeFirstAlphanumeric(words, pos): #Capitalize the first alphanumeric character if it's an alphabet
                     caseChange = True
 
         #Change last word in title to uppercase
-        if wordSkip <= len(words) - 1: #Avoid index out of bounds
-            if capitalizeFirstAlphanumeric(words, -1):
-                caseChange = True
+        if words and capitalizeFirstAlphanumeric(words, -1):
+            caseChange = True    
 
         #Rebuild filename if any words were changed to lowercase
         if caseChange:
-            newFilename = ""
-            newFilename += words[0]
+            newFilename = words[0]
             for word in words[1:]:
                 newFilename += ' ' + word
             newFilename += extension
