@@ -92,54 +92,56 @@ def main():
         #--------------------------#
         # Change the case of words #
         #--------------------------#
-
+        
         #Get filename without extension
         if len(extension) > 0:
             nameWithoutExtension = newFilename[:-len(extension)]
         else:
             nameWithoutExtension = newFilename
 
-        words = nameWithoutExtension.split()
+        if not nameWithoutExtension.isupper(): #Skip filenames that are intentionally all capitals
 
-        #Check for delimiter between number and name that should be skipped over
-        delimiterPosInString = wordSkip
-        if delimiterPosInString < len(words): #Avoid index out of bounds
-            wordSkip += 1 #Assume there is a delimiter
-            for x in words[delimiterPosInString][delimiterPosInNumber:]: #Skip starting number if delimiter is part of number
-                if x.isalnum():
-                    wordSkip -= 1 #Not a delimiter if it contains an alphanumerical character
-                    break
+            words = nameWithoutExtension.split()
 
-        #Change first word in title to uppercase
-        if wordSkip < len(words): #Avoid index out of bounds
-            if wordSkip == 0:
-                start = numLength #Skip number if it exists in first word
-            else:
-                start = 0
-            if capitalizeFirstAlphanumeric(words, wordSkip, start):
-                caseChange = True
-            wordSkip += 1
-        
-        #Check for inner words that should be lowercase or uppercase
-        for pos in range(wordSkip, len(words) - 1): #Skip number (if exists) and first and last words
-            wordMatch = wordPattern.match(words[pos])
-            if wordMatch and not wordMatch.group().isupper() and words[pos-1][-1].isalnum():
-                words[pos] = words[pos].lower() #Change word to lowercase
-                caseChange = True
-            elif capitalizeFirstAlphanumeric(words, pos): #Capitalize the first alphanumeric character if it's an alphabet
+            #Check for delimiter between number and name that should be skipped over
+            delimiterPosInString = wordSkip
+            if delimiterPosInString < len(words): #Avoid index out of bounds
+                wordSkip += 1 #Assume there is a delimiter
+                for x in words[delimiterPosInString][delimiterPosInNumber:]: #Skip starting number if delimiter is part of number
+                    if x.isalnum():
+                        wordSkip -= 1 #Not a delimiter if it contains an alphanumerical character
+                        break
+
+            #Change first word in title to uppercase
+            if wordSkip < len(words): #Avoid index out of bounds
+                if wordSkip == 0:
+                    start = numLength #Skip number if it exists in first word
+                else:
+                    start = 0
+                if capitalizeFirstAlphanumeric(words, wordSkip, start):
                     caseChange = True
+                wordSkip += 1
+            
+            #Check for inner words that should be lowercase or uppercase
+            for pos in range(wordSkip, len(words) - 1): #Skip number (if exists) and first and last words
+                wordMatch = wordPattern.match(words[pos])
+                if wordMatch and words[pos-1][-1].isalnum(): #Only change to lowercase if word doesn't follow punctuation
+                    words[pos] = words[pos].lower()
+                    caseChange = True
+                elif capitalizeFirstAlphanumeric(words, pos): #Capitalize the first alphanumeric character if it's an alphabet
+                        caseChange = True
 
-        #Change last word in title to uppercase
-        if words and capitalizeFirstAlphanumeric(words, -1):
-            caseChange = True    
+            #Change last word in title to uppercase
+            if words and capitalizeFirstAlphanumeric(words, -1):
+                caseChange = True    
 
-        #Rebuild filename if any words were changed to lowercase
-        if caseChange:
-            newFilename = words[0]
-            for word in words[1:]:
-                newFilename += ' ' + word
-            newFilename += extension
-            fileRenamed = True
+            #Rebuild filename if any words were changed to lowercase
+            if caseChange:
+                newFilename = words[0]
+                for word in words[1:]:
+                    newFilename += ' ' + word
+                newFilename += extension
+                fileRenamed = True
 
         #--------------------------#
         # Setup Changes To Be Made #
