@@ -7,8 +7,9 @@ import re
 import glob
 
 #List of words to be changed to lowercase
-wordsToLower = ["The", "A", "An", "And", "But", "Or", "Nor", "At", "By", "For", "From", "In", "Into", 
-                "Of", "Ov", "Off", "On", "Onto", "Out", "Over", "To", "Up", "With", "As"]
+wordsToLower = ["The", "A", "An", "And", "Und", "But", "Or", "Nor", "At", "By", "For", "From", 
+                "In", "Into", "Of", "Off", "On", "Onto", "Out", "Over", "To", "Up", "With", "As", 
+                "Fra", "Et", "Ov",]
                 #NOTE: The word "as" should be capitalized if it's followed by a verb 
 
 def main():

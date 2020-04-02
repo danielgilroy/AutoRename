@@ -30,7 +30,7 @@ For Linux, move Auto Rename to the following folder:
 
 # Usage
 
-To change the filename of every file in a folder, run the application without any arguments from a terminal window. The current working directory of the terminal will be the targeted directory for renaming files. 
+To change the filename of every file in a folder, run the application without any arguments from a terminal window. The current working directory of the terminal will be the targeted directory for renaming files.
 
     autorename.py
 
@@ -44,7 +44,7 @@ To remove the delimiter between the starting number and the title, enter the num
 
     01 - This Is The Song Title Of A Song    =>    01- This Is the Song Title of a Song
 
-Characters will only be removed from filenames that have a starting number since the intended use is to remove delimiters between the starting number and title. Be careful using this feature on multiple filenames containing delimeters of different lengths as unintentional changes and even loss of filename data may occur. The following example demonstrates how filename data can be lost:
+Characters will only be removed from filenames that have a starting number since the intended use is to remove delimiters between the starting number and title. Be careful using this feature on multiple filenames containing delimiters of different lengths as unintentional changes and even loss of filename data may occur. The following example demonstrates how filename data can be lost:
 
     Enter the number of characters to remove after the filename number: <2>
 
